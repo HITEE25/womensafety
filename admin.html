@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Admin Complaints</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+        <link rel="stylesheet" href="style.css">
+        <style>
+            .card {
+                background: rgba(255, 255, 255, 0);
+                color: #040404;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div id="navbar"></div>
+        <div class="container py-5">
+            <div class="row justify-content-center">
+                <div class="col-lg-11">
+
+                    <h2 class="text-center mb-4"><i class="bi bi-shield-lock-fill text-warning me-2"></i>Admin
+                        Complaints</h2>
+                    <div id="complaintsBox"></div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            fetch("navbar.html")
+                .then(res => res.text())
+                .then(data => {
+                    document.getElementById("navbar").innerHTML = data;
+                });
+
+            if (localStorage.getItem('isLoggedIn') !== 'true' || localStorage.getItem('userRole') !== 'admin') {
+                location.href = 'login.html';
+            }
+
+            let complaints = JSON.parse(localStorage.getItem('complaints')) || [];
+
+            document.getElementById('logoutBtn').addEventListener('click', (e) => {
+                e.preventDefault();
+                localStorage.removeItem('isLoggedIn');
+                localStorage.removeItem('userRole');
+                location.href = 'login.html';
+            });
+
+            function saveComplaints() {
+                localStorage.setItem('complaints', JSON.stringify(complaints));
+                updateComplaintCount();
+            }
+
+            function updateComplaintCount() {
+                const pendingCount = complaints.filter(c => c.status !== 'Resolved').length;
+                localStorage.setItem('complaintsCount', pendingCount);
+            }
+
+            function markResolved(id) {
+                complaints = complaints.map(c => c.id === id ? { ...c, status: 'Resolved' } : c);
+                saveComplaints();
+                renderComplaints();
+            }
+
+            function renderComplaints() {
+                const box = document.getElementById('complaintsBox');
+
+                const pendingComplaints = complaints.filter(c => c.status !== 'Resolved');
+
+                if (complaints.length === 0) {
+                    box.innerHTML = '<p class="text-center text-white-50">No complaints found.</p>';
+                    return;
+                }
+
+                box.innerHTML = complaints.map(c => `
+      <div class="d-flex justify-content-between align-items-start flex-wrap gap-2">
+        <div>
+          <h5 class="mb-1">${c.name}</h5>
+          <div><strong>Location:</strong> ${c.location}</div>
+          <div><strong>Time:</strong> ${c.time}</div>
+          <div><strong>Status:</strong> <span class="badge ${c.status === 'Resolved' ? 'bg-success' : 'bg-warning text-dark'}">${c.status}</span></div>
+        </div>
+        <button class="btn btn-success btn-sm" ${c.status === 'Resolved' ? 'disabled' : ''} onclick="markResolved(${c.id})">
+          Mark Resolved
+        </button>
+      </div>
+      <hr class="border-dark">
+      <p class="mb-0">${c.description}</p>
+  `).join('');
+
+                localStorage.setItem('complaintsCount', pendingComplaints.length);
+            }
+
+            renderComplaints();
+        </script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    </body>
+
+</html>
