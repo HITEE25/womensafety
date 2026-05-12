@@ -225,13 +225,13 @@
                         `SEND HELP IMMEDIATELY!`;
 
                     contacts.forEach(contact => {
-
                         const cleanPhone = normalizeIndianNumber(contact.phone);
 
-                        const whatsappUrl =
-                            `https://wa.me/${cleanPhone}?text=${encodeURIComponent(sosMessage)}`;
+                        const whatsappUrl = `https://wa.me/${cleanPhone}?text=${encodeURIComponent(sosMessage)}`;
+                        const smsUrl = `sms:${cleanPhone}?body=${encodeURIComponent(sosMessage)}`;
 
                         window.open(whatsappUrl, '_blank');
+                        window.location.href = smsUrl;
                     });
 
                     status.className = 'alert alert-success shadow-lg';
