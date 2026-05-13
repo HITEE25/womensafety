@@ -1,164 +1,210 @@
 <!DOCTYPE html>
 <html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Emergency Contacts</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .whatsapp-btn {
+      background: #25D366 !important;
+      border-color: #25D366 !important;
+    }
+  </style>
+</head>
+<body>
 
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Emergency Contacts</title>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
-        <link rel="stylesheet" href="style.css">
-        <style>
-            .whatsapp-btn {
-                background: #25D366 !important;
-                border-color: #25D366 !important;
-            }
-        </style>
-    </head>
+<nav class="navbar navbar-expand-lg navbar-dark sticky-top p-3">
+  <div class="container">
+    <a class="navbar-brand fw-bold fs-3" href="index.html">
+      <i class="bi bi-shield-fill-check text-danger me-2"></i>Women Safety
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a class="nav-link" href="index.html">Dashboard</a></li>
+        <li class="nav-item"><a class="nav-link active" href="contacts.html">Contacts</a></li>
+        <li class="nav-item"><a class="nav-link" href="location.html">Location</a></li>
+        <li class="nav-item"><a class="nav-link" href="complaint.html">Complaint</a></li>
+        <li class="nav-item" id="adminLink" style="display:none;"><a class="nav-link" href="admin.html">Admin</a></li>
+        <li class="nav-item"><a class="nav-link" href="#" id="logoutBtn">Logout</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
 
-    <body>
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-10">
+      <h2 class="text-center mb-4"><i class="bi bi-people-fill me-2"></i>Emergency Contacts</h2>
 
-        <nav class="navbar navbar-expand-lg navbar-dark sticky-top p-3">
-            <div class="container">
-                <a class="navbar-brand fw-bold fs-3" href="index.html">
-                    <i class="bi bi-shield-fill-check text-danger me-2"></i>Women Safety
-                </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav ms-auto">
-                        <li class="nav-item"><a class="nav-link" href="index.html">Dashboard</a></li>
-                        <li class="nav-item"><a class="nav-link active" href="contacts.html">Contacts</a></li>
-                        <li class="nav-item"><a class="nav-link" href="location.html">Location</a></li>
-                        <li class="nav-item"><a class="nav-link" href="complaint.html">Complaint</a></li>
-                        <li class="nav-item" id="adminLink" style="display:none;"><a class="nav-link"
-                                href="admin.html">Admin</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#" id="logoutBtn">Logout</a></li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
+      <div class="container text-center mb-4 py-5" style="max-width: 1100px;">
+        <p class="text-black opacity-75 fs-5">
+          Add trusted family members, friends, or guardians who can be contacted immediately during emergencies.
+          With a single tap, users can quickly call, send SMS alerts, or share their live location through WhatsApp.
+        </p>
+      </div>
 
-        <div class="container py-5">
-            <div class="row justify-content-center">
-                <div class="col-lg-10">
-                    <h2 class="text-center mb-4"><i class="bi bi-people-fill me-2"></i>Emergency Contacts</h2>
-
-                    <div class="container text-center mb-4 py-5" style="max-width: 1100px;">
-                        <p class="text-black opacity-75 fs-5">
-                            Add trusted family members, friends, or guardians who can be contacted immediately during
-                            emergencies.
-                            With a single tap, users can quickly call, send SMS alerts, or share their live location
-                            through WhatsApp.
-                        </p>
-                    </div>
-
-                    <div class="row g-3 mb-4">
-                        <div class="col-md-5">
-                            <input type="text" id="contactName" class="form-control" placeholder="Contact Name">
-                        </div>
-                        <div class="col-md-5">
-                            <input type="tel" id="contactPhone" class="form-control" placeholder="Phone Number">
-                        </div>
-                        <div class="col-md-2">
-                            <button id="addContact" class="btn btn-success w-100">
-                                <i class="bi bi-plus-lg"></i> Add
-                            </button>
-                        </div>
-                    </div>
-
-                    <div id="noContacts" class="text-center py-5 opacity-50 d-none">
-                        <i class="bi bi-person-plus fs-1 text-muted mb-3"></i>
-                        <p>No contacts added yet.</p>
-                    </div>
-
-                    <ul id="contactsList" class="list-group list-group-flush"></ul>
-                </div>
-            </div>
+      <div class="row g-3 mb-4">
+        <div class="col-md-5">
+          <input type="text" id="contactName" class="form-control" placeholder="Contact Name">
         </div>
+        <div class="col-md-5">
+          <input type="tel" id="contactPhone" class="form-control" placeholder="Phone Number">
+        </div>
+        <div class="col-md-2">
+          <button id="addContact" class="btn btn-success w-100">
+            <i class="bi bi-plus-lg"></i> Add
+          </button>
+        </div>
+      </div>
 
-        <script>
-            // Check login
-            if (localStorage.getItem('isLoggedIn') !== 'true') {
-                window.location.replace('login.html');
-            }
+      <div id="noContacts" class="text-center py-5 opacity-50 d-none">
+        <i class="bi bi-person-plus fs-1 text-muted mb-3"></i>
+        <p>No contacts added yet.</p>
+      </div>
 
-            // Load navbar
-            fetch("navbar.html")
-                .then(res => res.text())
-                .then(data => {
+      <ul id="contactsList" class="list-group list-group-flush"></ul>
+    </div>
+  </div>
+</div>
 
-                    document.getElementById("navbar").innerHTML = data;
+<script>
+document.addEventListener('DOMContentLoaded', () => {
 
-                    // Show admin link
-                    const adminLink = document.getElementById('adminLink');
+  // Safe navbar load
+  const navbarEl = document.getElementById('navbar');
+  if (navbarEl) {
+    fetch('navbar.html')
+      .then(res => res.text())
+      .then(data => {
+        navbarEl.innerHTML = data;
 
-                    if (
-                        localStorage.getItem('userRole') === 'admin'
-                        && adminLink
-                    ) {
-                        adminLink.style.display = 'block';
-                    }
+        const adminLink = document.getElementById('adminLink');
+        if (localStorage.getItem('userRole') === 'admin' && adminLink) adminLink.style.display = 'block';
 
-                    // Logout
-                    const logoutBtn = document.getElementById('logoutBtn');
+        const logoutBtn = document.getElementById('logoutBtn');
+        if (logoutBtn) {
+          logoutBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            localStorage.removeItem('isLoggedIn');
+            localStorage.removeItem('userRole');
+            location.href = 'login.html';
+          });
+        }
+      })
+      .catch(err => {
+        console.warn('Could not load navbar.html:', err);
+      });
+  }
 
-                    if (logoutBtn) {
+  // Ensure user is logged in
+  if (localStorage.getItem('isLoggedIn') !== 'true') {
+    location.href = 'login.html';
+    return;
+  }
 
-                        logoutBtn.addEventListener('click', function (e) {
+  // Load contacts safely
+  let contacts = [];
+  try {
+    contacts = JSON.parse(localStorage.getItem('emergencyContacts')) || [];
+  } catch (err) {
+    console.error('Failed to parse contacts from localStorage', err);
+    contacts = [];
+  }
 
-                            e.preventDefault();
+  function normalizeIndianNumber(phone) {
+    let n = phone.replace(/\D/g, '');
+    if (n.startsWith('91') && n.length >= 12) return n;
+    if (n.length === 10) return '91' + n;
+    return n;
+  }
 
-                            localStorage.clear();
+  function saveContacts() {
+    localStorage.setItem('emergencyContacts', JSON.stringify(contacts));
+  }
 
-                            window.location.replace('login.html');
-                        });
-                    }
-                });
+  function renderContacts() {
+    const list = document.getElementById('contactsList');
+    const noContacts = document.getElementById('noContacts');
+    if (!list || !noContacts) return console.warn('Missing contacts DOM elements');
+    list.innerHTML = '';
 
-            // Complaints Data
-            let complaints =
-                JSON.parse(localStorage.getItem('complaints')) || [];
+    if (contacts.length === 0) {
+      noContacts.classList.remove('d-none');
+      return;
+    }
+    noContacts.classList.add('d-none');
 
-            // Complaint Form Submit
-            document.getElementById('complaintForm')
-                .addEventListener('submit', (e) => {
+    contacts.forEach((contact, index) => {
+      const cleanPhone = normalizeIndianNumber(contact.phone);
+      const li = document.createElement('li');
+      li.className = 'list-group-item bg-transparent border-0 py-3 px-0';
+      li.innerHTML = `
+        <div class="d-flex justify-content-between align-items-center">
+          <div>
+            <h6 class="mb-1 text-black">${contact.name}</h6>
+            <small class="text-black">${contact.phone}</small>
+          </div>
+          <div class="btn-group btn-group-sm" role="group">
+            <a href="tel:${contact.phone}" class="btn btn-outline-success"><i class="bi bi-telephone"></i></a>
+            <a href="https://wa.me/${cleanPhone}" target="_blank" class="btn whatsapp-btn text-white"><i class="bi bi-whatsapp"></i></a>
+            <button class="btn btn-outline-warning" onclick="editContact(${index})"><i class="bi bi-pencil"></i></button>
+            <button class="btn btn-outline-danger" onclick="deleteContact(${index})"><i class="bi bi-trash"></i></button>
+          </div>
+        </div>
+      `;
+      list.appendChild(li);
+    });
+  }
 
-                    e.preventDefault();
+  // Safe add button binding
+  const addBtn = document.getElementById('addContact');
+  if (addBtn) {
+    addBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const name = document.getElementById('contactName').value.trim();
+      const phone = document.getElementById('contactPhone').value.trim();
+      if (!name || !phone) return alert('Enter name and phone number.');
+      contacts.push({ name, phone });
+      saveContacts();
+      renderContacts();
+      document.getElementById('contactName').value = '';
+      document.getElementById('contactPhone').value = '';
+    });
+  } else {
+    console.warn('Add button not found');
+  }
 
-                    const complaint = {
+  // Expose edit/delete to global scope (so inline onclick works)
+  window.deleteContact = function(index) {
+    contacts.splice(index, 1);
+    saveContacts();
+    renderContacts();
+  };
 
-                        id: Date.now(),
+  window.editContact = function(index) {
+    const c = contacts[index];
+    document.getElementById('contactName').value = c.name;
+    document.getElementById('contactPhone').value = c.phone;
+    contacts.splice(index, 1);
+    saveContacts();
+    renderContacts();
+  };
 
-                        name:
-                            document.getElementById('name').value.trim(),
+  // Show admin link if applicable (if navbar already loaded)
+  const adminLinkNow = document.getElementById('adminLink');
+  if (localStorage.getItem('userRole') === 'admin' && adminLinkNow) adminLinkNow.style.display = 'block';
 
-                        location:
-                            document.getElementById('incidentLocation').value.trim(),
+  renderContacts();
 
-                        description:
-                            document.getElementById('description').value.trim(),
+}); // DOMContentLoaded
+</script>
 
-                        status: 'Pending',
-
-                        time:
-                            new Date().toLocaleString('en-IN')
-                    };
-
-                    complaints.unshift(complaint);
-
-                    localStorage.setItem(
-                        'complaints',
-                        JSON.stringify(complaints)
-                    );
-
-                    alert('Complaint submitted successfully.');
-
-                    e.target.reset();
-                });
-        </script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    </body>
-
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
 </html>
